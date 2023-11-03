@@ -7,13 +7,11 @@ const server = http.createServer(function(req,res){
     if(req.url === "/"){
         respondText(req,res);
     } else if(req.url === "/json"){
-        respondJson(req,res)
-    } else respondNothing(req,res)
-    // res.setHeader("Content-Type","text/plain");
-    // res.write("Hi from server");
-    // res.setHeader("Content-Type","application/json");
-    // res.write(JSON.stringify({name:"Bill",age:23}))
-    // res.end("HI from server");
+        respondJson(req,res);
+    } else if(req.url.match(/^\/converttouppercase/)){
+        respondConvert(req,res);
+    }
+    else respondNothing(req,res);
     res.end();
 })
 server.listen(port,()=>{
@@ -30,4 +28,10 @@ function respondJson(req,res){
 function respondNothing(req,res){
     res.writeHead(404,"Nothing found");
     res.write("Nothing found");
+}
+function respondConvert(req,res){
+    console.log(req.url.split("?"));
+    ///converttouppercase?input=bill%20gates&search=searchtext
+    console.log(req.url.split("?")[1]);
+    //input=bill%20gates&search=searchtext
 }

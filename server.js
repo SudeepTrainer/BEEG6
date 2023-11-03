@@ -1,5 +1,6 @@
 // console.log(__dirname);
 const http = require('http'); // imports the http module
+const queryString = require('querystring');
 const port = 3000;
 // listener function/callback function is the only argument
 const server = http.createServer(function(req,res){
@@ -30,8 +31,13 @@ function respondNothing(req,res){
     res.write("Nothing found");
 }
 function respondConvert(req,res){
-    console.log(req.url.split("?"));
-    ///converttouppercase?input=bill%20gates&search=searchtext
-    console.log(req.url.split("?")[1]);
-    //input=bill%20gates&search=searchtext
+    //converttouppercase?input=bill%20gates&search=searchtext
+    // console.log(req.url.split("?"));
+    // // [ '/converttouppercase', 'input=bill%20gates&search=searchtext' ]
+    // console.log(req.url.split("?")[1]);
+    // //input=bill%20gates&search=searchtext
+    // console.log(queryString.parse(req.url.split("?")[1]));
+    // { input: 'bill gates', search: 'searchtext' }
+    const {input} = queryString.parse(req.url.split("?")[1])
+    res.write(input.toUpperCase())
 }

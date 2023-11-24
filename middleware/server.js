@@ -14,7 +14,18 @@ function middleware1(req,res,next){
     console.log("after");
 }
 
+function middleware2(req,res,next){
+    console.log("Middleware 2 called");
+    const errorObj = new Error("unknown error");
+    next(errorObj);
+}
+
+function errorMiddleware(err,req,res,next){
+    res.send("<h1>PLease try again after some time.</h1>")
+}
+
 //global middlware
+app.use(middleware2);
 app.use(middleware1);
 
 function defaultResponse(requestObject,responseObject,nextMiddleware){
@@ -39,6 +50,8 @@ function auth(req,res,next){
 }
 
 app.get("/login",auth,loginResponse);
+
+app.use(errorMiddleware);
 
 app.listen(port,()=>{
     console.log("listening to the server on 3000");

@@ -12,9 +12,14 @@ app.get("/",(req,res)=>{
 
 function addItem(req,res){
     console.log(req.body);
+    jsonArray.push(req.body);
+    res.send("<h1>Added successfully</h1>")
 }
 
 app.post("/add",addItem);
+app.get("/array",(req,res)=>{
+    res.json(jsonArray);
+})
 
 app.listen(port,()=>{
     console.log("listening on port 3000");

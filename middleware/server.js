@@ -30,6 +30,7 @@ app.use(middleware1);
 
 function defaultResponse(requestObject,responseObject,nextMiddleware){
     console.log("default route action method called");
+    responseObject.cookie()
     responseObject.send("<h1>Default page</h1>");
 }
 

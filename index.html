@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="login">Click Me!</button>
+    <script>
+        document.getElementById("login").addEventListener('click',()=>{
+            console.log("Button clicked");
+            nonblocking();
+        })
+        function blocking(){
+            console.log("blocking called");
+            const time = Date.now();
+            while((Date.now() - time) < 1000){
+                console.log("running synchronously");
+            }
+        }
+        function nonblocking(){
+            console.log("non blocking called");
+            setTimeout(()=>{
+                console.log("Aynchronous call");
+            },100);
+        }
+    </script>
+</body>
+</html>

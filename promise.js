@@ -71,3 +71,10 @@ fetch('https://jsonplaceholder.typicode.com/users/')
 .then(data=>{
     console.log(data);
 })
+
+async function getUsers(){
+    const response = await fetch('https://jsonplaceholder.typicode.com/users/');
+    const jsonUsersData = await response.json();
+    console.log(jsonUsersData);
+}
+getUsers();

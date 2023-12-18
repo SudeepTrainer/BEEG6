@@ -8,12 +8,22 @@ const cookieParser = require('cookie-parser');
 const PORT = 3000;
 const application = express();
 
-const databaseUri = 'mongodb://127.0.0.1:27017/mydb'
+const databaseUri = 'mongodb://127.0.0.1:27017/authdb'
 //connect to mongodb
 mongoose.connect(databaseUri)
     .then(()=>{console.log(`db connected`)})
     .catch(()=>{console.log(`Error connecting db`)})
 
+//Database schemas
+
+// user schema
+const userSchema = new mongoose.Schema({
+    username:String,
+    password:String
+})
+
+// user model
+const User = mongoose.model('User',userSchema);
 //middleware
 // application.use(session({
 //     secret:"secretkeytosigncokkie",
@@ -31,22 +41,22 @@ application.set('view engine','ejs');
 application.use(cookieParser());
 application.use(express.urlencoded({extended:true}));
 
-// middleware to check authentication status
-application.use((req,res,next)=>{
-    const {auth} = req.cookies;
-    if(auth){
-        req.isAuthenticated = true;
-    }else{
-        req.isAuthenticated = false;
-    }
-})
-const isAuthenticated = (req,res,next)=>{
-    if(req.isAuthenticated){
-        next();
-    }else{
-        res.status(401).redirect('/login')
-    }
-}
+// // middleware to check authentication status
+// application.use((req,res,next)=>{
+//     const {auth} = req.cookies;
+//     if(auth){
+//         req.isAuthenticated = true;
+//     }else{
+//         req.isAuthenticated = false;
+//     }
+// })
+// const isAuthenticated = (req,res,next)=>{
+//     if(req.isAuthenticated){
+//         next();
+//     }else{
+//         res.status(401).redirect('/login')
+//     }
+// }
 //routing
 
 application.get("/login",(req,res)=>{
@@ -57,6 +67,49 @@ application.get("/login",(req,res)=>{
     res.render('login');
 })
 
+application.get("/register",(req,res)=>{
+    res.render('register');
+})
+
+application.post('/register', async (req,res)=>{
+    console.log(req.body);
+    const {username,password} = req.body;
+    try{
+        if(!username || !password){
+            throw new Error("Enter username and password");
+        }
+        // username exists in db
+        const existingUser = await User.findOne({username});
+        if(existingUser){
+            res.status(400).render('register',{error:"Username already exists"})
+            return;
+        }
+        const hashedPassword = bcrypt.hashSync(password,10);
+        const newUser = new User({
+            username,
+            password:hashedPassword
+        })
+        await newUser.save();
+        res.status(201).redirect('/login');
+    }catch(error){
+        console.log(error);
+    }
+})
+
+application.post('/login',async (req,res)=>{
+    const {username,password} = req.body;
+    try{
+        const existingUser = await User.findOne({username});
+        if(existingUser && bcrypt.compareSync
+                (password,existingUser.password)){
+            res.cookie("auth",true);
+            res.status(201).redirect('/');
+        }
+
+    }catch(error){
+        console.log(error);
+    }
+})
 application.listen(PORT,()=>{
     console.log(`Listening on port ${PORT}`);
 })

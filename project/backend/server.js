@@ -41,23 +41,34 @@ application.set('view engine','ejs');
 application.use(cookieParser());
 application.use(express.urlencoded({extended:true}));
 
-// // middleware to check authentication status
-// application.use((req,res,next)=>{
-//     const {auth} = req.cookies;
-//     if(auth){
-//         req.isAuthenticated = true;
-//     }else{
-//         req.isAuthenticated = false;
-//     }
-// })
-// const isAuthenticated = (req,res,next)=>{
-//     if(req.isAuthenticated){
-//         next();
-//     }else{
-//         res.status(401).redirect('/login')
-//     }
-// }
+// middleware to check authentication status
+application.use((req,res,next)=>{
+    const {auth} = req.cookies;
+    if(auth){
+        req.isAuthenticated = true;
+    }else{
+        req.isAuthenticated = false;
+    }
+    next();
+})
+const isAuthenticated = (req,res,next)=>{
+    if(req.isAuthenticated){
+        next();
+    }else{
+        res.status(401).redirect('/login')
+    }
+}
 //routing
+
+application.get("/",isAuthenticated,(req,res)=>{
+    res.render('home');
+})
+
+application.get("/logout",(req,res)=>{
+    res.clearCookie('auth');
+    res.status(200).redirect('/login');
+})
+
 
 application.get("/login",(req,res)=>{
     // req.session.isAuth = true;

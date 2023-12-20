@@ -1,51 +1,172 @@
+<!-- views/products.ejs -->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Products</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #F4F3F2;
         }
 
         h1 {
             text-align: center;
-            color: #333;
         }
 
-        a {
-            display: block;
-            text-align: center;
-            color: #3498db;
-            text-decoration: none;
-            font-size: 16px;
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid #3498db;
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+
         }
 
-        a:hover {
-            background-color: #3498db;
+        li {
+            width: 300px;
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            background-color: white;
+        }
+
+        li:hover {
+            transform: scale(1.05);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        input {
+            width: 50px;
+            margin-right: 10px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 8px 15px;
+            background-color: #4caf50;
             color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .count-in-cart {
+            color: #333;
+            font-weight: bold;
+        }
+
+        header {
+            background-color: #333;
+            padding: 15px 0;
+        }
+
+        nav {
+            background-color: #333;
+            color: #fff;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .center {
+            justify-content: center;
+            display: flex;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .right-menu {
+            margin-left: auto;
+        }
+
+        .right-menu a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: 20px;
+        }
+
+        .right-menu a:hover {
+            border-bottom: 2px solid #fff;
         }
     </style>
 </head>
 
 <body>
-    <h1>Welcome to the Home Page</h1>
-    <a href="/logout">Logout</a>
+    <header>
+        <nav>
+            <div class="center">
+                <div class="logo">
+                    <h2>Products</h2>
+                </div>
+                <div class="right-menu">
+                    <a href="#">Cart</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+
+        </nav>
+    </header>
+
+    <ul>
+        <% products.forEach(product=> { %>
+            <li>
+                <h3>
+                    <%= product.name %>
+                </h3>
+                <img src="<%= product.image %>" alt="<%= product.name %> Image">
+                <p>
+                    <%= product.description %>
+                </p>
+                <p>Price: $<%= product.price %>
+                </p>
+                <p>Category: <%= product.category %>
+                </p>
+
+            </li>
+            <% }); %>
+    </ul>
 </body>
 
 </html>

@@ -1,0 +1,73 @@
+[
+    {
+        "name": "Apple iPhone 15 Pro Max",
+        "description": "This is the description for Apple iPhone 15 Pro Max.",
+        "price": 19.99,
+        "category": "Electronics",
+        "image": "https://m.media-amazon.com/images/I/81c50PU+lpL._AC_UL320_.jpg"
+    },
+    {
+        "name": "Product 2",
+        "description": "Description for Product 2 goes here.",
+        "price": 29.99,
+        "category": "Clothing",
+        "image": "https://m.media-amazon.com/images/I/517zZDccxDL._AC_UL320_.jpg"
+    },
+    {
+        "name": "Iron Kadhai",
+        "description": "Iron Kadhai is perfect for your needs.",
+        "price": 49.99,
+        "category": "Home & Kitchen",
+        "image": "https://m.media-amazon.com/images/I/71wjyTdhw6L._SY450_.jpg"
+    },
+    {
+        "name": "THE INDIAN COOKERY COURSE",
+        "description": "Description for THE INDIAN COOKERY COURSE.",
+        "price": 39.99,
+        "category": "Books",
+        "image": "https://m.media-amazon.com/images/I/61qz1crSpIL._SX342_SY445_.jpg"
+    },
+    {
+        "name": "Apple iPhone 15 Pro (1 TB) - Black Titanium",
+        "description": "This is the description for Apple iPhone 15 Pro (1 TB) - Black Titanium",
+        "price": 19.99,
+        "category": "Electronics",
+        "image": "https://m.media-amazon.com/images/I/81+GIkwqLIL._AC_UL320_.jpg"
+    },
+    {
+        "name": "Product 6",
+        "description": "Description for Product 6 goes here.",
+        "price": 29.99,
+        "category": "Clothing",
+        "image": "https://m.media-amazon.com/images/I/517zZDccxDL._AC_UL320_.jpg"
+    },
+    {
+        "id": 7,
+        "name": "THE INDIAN COOKERY COURSE",
+        "description": "Description for THE INDIAN COOKERY COURSE.",
+        "price": 39.99,
+        "category": "Books",
+        "image": "https://m.media-amazon.com/images/I/61qz1crSpIL._SX342_SY445_.jpg"
+    },
+    {
+        "name": "Apple iPhone 15 Pro (1 TB) - Black Titanium",
+        "description": "Description for Apple iPhone 15 Pro (1 TB) - Black Titanium.",
+        "price": 39.99,
+        "category": "Electronics",
+        "image": "https://m.media-amazon.com/images/I/81c50PU+lpL._AC_UL320_.jpg"
+    },
+    {
+        "name": "Iron Kadhai",
+        "description": "Iron Kadhai is perfect for your needs.",
+        "price": 49.99,
+        "category": "Home & Kitchen",
+        "image": "https://m.media-amazon.com/images/I/71wjyTdhw6L._SY450_.jpg"
+    },
+    {
+        "name": "Apple iPhone 15 Pro (1 TB) - Black Titanium",
+        "description": "This is the description for Apple iPhone 15 Pro (1 TB) - Black Titanium",
+        "price": 19.99,
+        "category": "Electronics",
+        "image": "https://m.media-amazon.com/images/I/81+GIkwqLIL._AC_UL320_.jpg"
+    }
+]

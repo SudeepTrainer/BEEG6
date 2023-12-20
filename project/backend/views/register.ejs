@@ -82,6 +82,9 @@
 </head>
 
 <body>
+    <% if(typeof error !="undefined" && error) {%>
+        <h2 style="color:red">Error: <%= error %></h2>
+    <% } %>
     <form action="/register" method="post">
         <h1>User Registration</h1>
         <label for="username">Username:</label>

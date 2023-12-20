@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 
+const User = require('./model/user');
+const Product = require('./model/product');
 // create the express app and set the port
 const PORT = 3000;
 const application = express();
@@ -16,14 +18,6 @@ mongoose.connect(databaseUri)
 
 //Database schemas
 
-// user schema
-const userSchema = new mongoose.Schema({
-    username:String,
-    password:String
-})
-
-// user model
-const User = mongoose.model('User',userSchema);
 //middleware
 // application.use(session({
 //     secret:"secretkeytosigncokkie",
@@ -60,8 +54,15 @@ const isAuthenticated = (req,res,next)=>{
 }
 //routing
 
-application.get("/",isAuthenticated,(req,res)=>{
-    res.render('home');
+application.get("/",isAuthenticated,async (req,res)=>{
+    try{
+        const products = await Product.find({});
+        console.log(products);
+        res.render('home',{products});
+    }catch(error){
+        console.log(error);
+        res.status(500).render('home',{error:"Internal server error"})
+    }
 })
 
 application.get("/logout",(req,res)=>{
@@ -94,7 +95,7 @@ application.post('/register', async (req,res)=>{
         if(existingUser){
             res.status(400).render('register',{error:"Username already exists"})
             return;
-        }
+        }   
         const hashedPassword = bcrypt.hashSync(password,10);
         const newUser = new User({
             username,

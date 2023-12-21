@@ -1,0 +1,102 @@
+<!-- views/cart.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        li:hover {
+            transform: scale(1.05);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .empty-cart {
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .checkout-btn {
+            display: block;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Shopping Cart</h1>
+    <% if (cart.length> 0) { %>
+        <ul>
+            <% cart.forEach(item=> { %>
+                <li>
+                    <h3>
+                        <%= item.product.name %>
+                    </h3>
+                    <img src="<%= item.product.image %>" alt="<%= item.product.name %> Image" width="100">
+                    <p>Quantity: <%= item.quantity %>
+                    </p>
+                    <p>Price: $<%= item.product.price %>
+                    </p>
+                </li>
+                <% }); %>
+        </ul>
+        <p class="total">Total: $<%= total %>
+        </p>
+        <a href="/checkout" class="checkout-btn">Proceed to Checkout</a>
+        <% } else { %>
+            <p class="empty-cart">Your shopping cart is empty.</p>
+            <% } %>
+</body>
+
+</html>

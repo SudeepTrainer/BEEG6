@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 
 const User = require('./model/user');
 const Product = require('./model/product');
+const CartItem = require('./model/cartitem');
 // create the express app and set the port
 const PORT = 3000;
 const application = express();
@@ -120,6 +121,21 @@ application.post('/login',async (req,res)=>{
 
     }catch(error){
         console.log(error);
+    }
+})
+
+application.get('/cart',async (req,res)=>{
+    try{
+        // get cart data from database
+        const cartItems = await CartItem.find({}).populate('Product');
+        // calculate the total items price
+        const total = cartItems.reduce((acc,item)=> 
+                            acc + item.quantity * item.product.price,0);
+        // display view cart and pass cartitems and total
+        res.status(200).render('cart',{cart:cartItems, total})
+    }catch(error){
+        console.log(error);
+        res.status(500).render('cart',{error:"Internal server error"})
     }
 })
 application.listen(PORT,()=>{
